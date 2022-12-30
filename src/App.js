@@ -1,24 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import IssueAdderLink from './components/IssueAdderLink'
+import Header from './components/Header'
+import Taskbar from './components/Taskbar'
+import Issue from './components/Issue'
+import IssueAdder from './components/IssueAdder'
+import { useState } from 'react'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route exact path='/' element={
+            <div>
+              <Header />
+              <Taskbar />
+              <div className="issue-list">
+                <Issue language='react' errorName='SyntaxError: Did you mean to use === ?' errorType='Warning' />
+                <Issue language='python' errorName='TypeError: Cannot add int and string' errorType='Error' />
+              </div>
+            </div>
+          }>
+          </Route>
+          <Route path='/issueadder' element={<IssueAdder />}></Route>
+        </Routes>
+        <IssueAdderLink />
+      </div>
+    </Router>
   );
 }
 
